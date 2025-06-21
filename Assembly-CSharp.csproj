@@ -64,11 +64,16 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.43f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\doorTriggerScript.cs" />
     <Compile Include="Assets\XR\WASDMovement.cs" />
     <Compile Include="Assets\Sounds\RandomPAPlayer.cs" />
+    <Compile Include="Assets\Scripts\moveHead.cs" />
+    <Compile Include="Assets\Scripts\SlidingDoor.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\Scripts\BeltMovement.cs" />
     <Compile Include="Assets\Scripts\ShoppingCart.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\CashierAnimation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -1039,6 +1044,10 @@
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.0.43f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.XR.Interaction.Toolkit.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.XR.Interaction.Toolkit.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.InputSystem.ForUI">
       <HintPath>Library\ScriptAssemblies\Unity.InputSystem.ForUI.dll</HintPath>
       <Private>False</Private>
@@ -1055,10 +1064,6 @@
       <HintPath>Library\ScriptAssemblies\Unity.XR.OpenXR.Features.ConformanceAutomation.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.XR.CoreUtils">
-      <HintPath>Library\ScriptAssemblies\Unity.XR.CoreUtils.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.XR.OpenXR.Features.OculusQuestSupport">
       <HintPath>Library\ScriptAssemblies\Unity.XR.OpenXR.Features.OculusQuestSupport.dll</HintPath>
       <Private>False</Private>
@@ -1069,6 +1074,10 @@
     </Reference>
     <Reference Include="Unity.AI.Navigation">
       <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.XR.CoreUtils">
+      <HintPath>Library\ScriptAssemblies\Unity.XR.CoreUtils.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
@@ -1217,6 +1226,10 @@
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.XR.Interaction.Toolkit">
+      <HintPath>Library\ScriptAssemblies\Unity.XR.Interaction.Toolkit.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
