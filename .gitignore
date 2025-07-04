@@ -4,6 +4,7 @@
 #
 .utmp/
 /[Ll]ibrary/
+/Library/Logs/  # Explicitly ignore Logs subfolder
 /[Tt]emp/
 /[Oo]bj/
 /[Bb]uild/
