@@ -1,40 +1,62 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
+
 public class PlayerMovement : MonoBehaviour
+
 {
-    public float moveSpeed = 5f;
-    public float mouseSensitivity = 100f;
-    private CharacterController controller;
-    private Camera playerCamera;
-    private float xRotation = 0f;
+    public Camera playerCamera;
+    public float walkSpeed = 1f;
+    private float runSpeed = 1f;
+    private float gravity = 10f;
+    private float lookSpeed = 2f;
+    private float lookXLimit = 45f;
+
+
+    private Vector3 moveDirection = Vector3.zero;
+    private float rotationX = 0;
+    private CharacterController characterController;
+
+    private bool canMove = true;
 
     void Start()
     {
-        controller = GetComponent<CharacterController>();
-        playerCamera = GetComponentInChildren<Camera>();
-        Cursor.lockState = CursorLockMode.Locked; // Lock cursor to center
-        Cursor.visible = false; // Hide cursor
+        characterController = GetComponent<CharacterController>();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
     {
-        // Movement
-        float moveX = Input.GetAxisRaw("Horizontal"); // A/D or Left/Right
-        float moveZ = Input.GetAxisRaw("Vertical");   // W/S or Up/Down
-        Vector3 move = transform.right * moveX + transform.forward * moveZ;
-        controller.Move(move.normalized * moveSpeed * Time.deltaTime);
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Vector3 right = transform.TransformDirection(Vector3.right);
 
-        // Mouse look
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Limit up/down look
-        playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.Rotate(Vector3.up * mouseX);
 
-        // Lock player height
-        Vector3 position = transform.position;
-        position.y = 1.4f; // Set to ground level (adjust if needed)
-        transform.position = position;
+
+        bool isRunning = Input.GetKey(KeyCode.LeftShift);
+        float curSpeedX = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Vertical") : 0;
+        float curSpeedY = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0;
+        float movementDirectionY = moveDirection.y;
+
+        moveDirection = (forward * curSpeedX) + (right * curSpeedY);
+
+        if (!characterController.isGrounded)
+        {
+            moveDirection.y -= gravity * Time.deltaTime;
+        }
+
+
+        characterController.Move(moveDirection * Time.deltaTime);
+
+        if (canMove)
+        {
+            rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
+            rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+            playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+            transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+        }
+
     }
 }
